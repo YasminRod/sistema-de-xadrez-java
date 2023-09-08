@@ -12,12 +12,12 @@ public class UI {
 			}
 			System.out.println();
 		}
-		System.out.println("  a b c d e f g h");
+		System.out.println("   a  b  c  d  e  f  g  h");
 	}
 	
 	private static void exibirPeca(PecaXadrez peca) {
 		if(peca == null) {
-			System.out.print("- ");
+			System.out.print(" - ");
 		} else {
 			System.out.print(peca);
 		}

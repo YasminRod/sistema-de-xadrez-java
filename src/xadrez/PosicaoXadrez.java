@@ -5,9 +5,9 @@ import tabuleiro.Posicao;
 public class PosicaoXadrez {
 	
 	private char coluna;
-	private char linha;
+	private int linha;
 	
-	public PosicaoXadrez(char coluna, char linha) {
+	public PosicaoXadrez(char coluna, int linha) {
 		if (coluna < 'a' || coluna > 'h' || linha < 1 || linha > 8) {
 			throw new XadrezException("Erro instanciando PosicaoXadrez. Valores válidos sao de a1 até h8");
 		}
@@ -19,7 +19,7 @@ public class PosicaoXadrez {
 		return coluna;
 	}
 	
-	public char getLinha() {
+	public int getLinha() {
 		return linha;
 	}
 	
@@ -28,7 +28,7 @@ public class PosicaoXadrez {
 	}
 	
 	protected static PosicaoXadrez daPosicao(Posicao posicao) {
-		return new PosicaoXadrez((char)('a' - posicao.getColuna()), (char)(8 - posicao.getLinha()));
+		return new PosicaoXadrez((char)('a' - posicao.getColuna()), (8 - posicao.getLinha()));
 	}
 	
 	@Override

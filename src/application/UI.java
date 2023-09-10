@@ -50,17 +50,23 @@ public class UI {
 			throw new InputMismatchException("Error reading chess position. Valid value are from a1 to h8");
 		}
 	}
-	
+
 	public static void exibirPartida(PartidaXadrez partidaXadrez, List<PecaXadrez> capturadas) {
 		exibirTabuleiro(partidaXadrez.getPecas());
 		System.out.println();
 		exibirPecasCapturada(capturadas);
 		System.out.println();
 		System.out.println("Turn: " + partidaXadrez.getTurno());
-		System.out.println("Waiting player: "+ partidaXadrez.getJogadorAtual());
-		if (partidaXadrez.getCheck()) {
-			System.out.println("CHECK!");
+		if (!partidaXadrez.getCheckMate()) {
+			System.out.println("Waiting player: " + partidaXadrez.getJogadorAtual());
+			if (partidaXadrez.getCheck()) {
+				System.out.println("CHECK!");
+			}
+		} else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Winner: " + partidaXadrez.getJogadorAtual());
 		}
+
 	}
 
 	public static void exibirTabuleiro(PecaXadrez[][] pecas) {
@@ -73,7 +79,7 @@ public class UI {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-	
+
 	public static void exibirTabuleiro(PecaXadrez[][] pecas, boolean[][] movimentosPossiveis) {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -90,7 +96,7 @@ public class UI {
 			System.out.print(ANSI_BLUE_BACKGROUND);
 		}
 		if (peca == null) {
-			System.out.print("-"+ ANSI_RESET);
+			System.out.print("-" + ANSI_RESET);
 		} else {
 			if (peca.getCor() == Cor.WHITE) {
 				System.out.print(ANSI_WHITE + peca + ANSI_RESET);
@@ -100,9 +106,10 @@ public class UI {
 		}
 		System.out.print(" ");
 	}
-	
+
 	private static void exibirPecasCapturada(List<PecaXadrez> capturadas) {
-		List<PecaXadrez> brancas = capturadas.stream().filter(x -> x.getCor() == Cor.WHITE).collect(Collectors.toList());
+		List<PecaXadrez> brancas = capturadas.stream().filter(x -> x.getCor() == Cor.WHITE)
+				.collect(Collectors.toList());
 		List<PecaXadrez> pretas = capturadas.stream().filter(x -> x.getCor() == Cor.BLACK).collect(Collectors.toList());
 		System.out.println("Captured pieces:");
 		System.out.print("White: ");
